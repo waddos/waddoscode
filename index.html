@@ -4,19 +4,38 @@
 <meta charset="UTF-8">
 <title>Waddos</title>
 <style>
-    @font-face{
-        font-family:"Helvetica Neue Bold";
-        src:local("Helvetica Neue Bold"),local("Helvetica-Bold"),
-            url("https://fonts.gstatic.com/s/inter/v13/UcCdnNEIhP2KFkcW7qA.ttf") format("truetype");
-        font-weight:700;
-        font-style:normal;
-    }
-    html,body{height:100%;margin:0}
-    body{display:flex;justify-content:center;align-items:center;background:#B6272B}
-    .letter{font-family:"Helvetica Neue Bold",Helvetica,Arial,sans-serif;font-weight:700;font-size:20vw;color:#F9EBD1;line-height:1}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+html,body{height:100%;margin:0}
+body{display:flex;justify-content:center;align-items:center;background:#B6272B}
+#title{font-family:'Inter',sans-serif;font-weight:700;font-size:18vw;color:#F9EBD1;line-height:1}
+@keyframes fade{0%,100%{opacity:0}50%{opacity:1}}
+.fade{display:inline-block;animation:fade 2s infinite}
 </style>
 </head>
 <body>
-<div class="letter">W</div>
+<div id="title">W</div>
+<script>
+const word='Waddos'
+let i=1
+let dir=1
+const speed=300
+const pause=10000
+const t=document.getElementById('title')
+function cycle(){
+  if(i===word.length){
+    t.innerHTML=word.slice(0,word.length-1)+'<span class="fade">'+word.slice(-1)+'</span>'
+  }else{
+    t.textContent=word.slice(0,i)
+  }
+  let delay
+  if(dir===1){
+    if(i<word.length){i++;delay=speed}else{dir=-1;delay=pause}
+  }else{
+    if(i>1){i--;delay=speed}else{dir=1;i=2;delay=pause}
+  }
+  setTimeout(cycle,delay)
+}
+cycle()
+</script>
 </body>
 </html>
